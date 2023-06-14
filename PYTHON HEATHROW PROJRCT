@@ -10,3 +10,4 @@ from matplotlib import pyplot as plt
 plt.plot(Months, Passengers_millions,label=Months)
 plt.plot(Months, Passengers_millions,label=Passengers_millions)
 plt.show()
+
