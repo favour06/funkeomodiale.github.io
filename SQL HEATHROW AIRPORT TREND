@@ -1,0 +1,5 @@
+--Which month tends to be the busiest for Heathrow airport
+SELECT *
+  FROM [AdventureWorks2017].[dbo].[sorted heathrowflightpassengerdataset SQL ]
+  WHERE Total_Heathrow_Passengers_Monthly = (SELECT MAX(Total_Heathrow_Passengers_Monthly)
+  FROM [AdventureWorks2017].[dbo].[sorted heathrowflightpassengerdataset SQL ]);
