@@ -1,0 +1,20 @@
+Examine the percentage of women who have undergone maternity and are regular smokers.  In which NHS region is the percentage the highest?
+
+WITH Number_of_maternities AS (SELECT * 
+FROM [AdventureWorks2017].[dbo].[smok-time-del-eng-q3-2223]
+WHERE Measure = 'Number of maternities'
+AND OrgName != 'England' AND OrgName NOT LIKE '%NHS%'),
+Women_known_to_be_smokers_at_time_of_delivery AS (
+SELECT * 
+FROM [AdventureWorks2017].[dbo].[smok-time-del-eng-q3-2223]
+WHERE Measure = 'Women known to be smokers at time of delivery'
+AND OrgName != 'England' AND OrgName NOT LIKE '%NHS%'
+), 
+combined AS (
+SELECT nom.FinancialYear, nom.Quarter, nom.OrgCode, nom.OrgName, nom.Value AS nom_Value, wkt.Value AS wkt_Value
+FROM Number_of_maternities AS nom
+INNER JOIN Women_known_to_be_smokers_at_time_of_delivery AS wkt ON wkt.OrgName = nom.OrgName AND wkt.Quarter = nom.Quarter
+), combined_with_percentage AS (
+SELECT *, round(cast(wkt_Value AS float)/ cast(nom_Value AS float),4) * 100 AS percentage_smokers
+FROM combined
+)
