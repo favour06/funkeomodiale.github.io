@@ -1,0 +1,14 @@
+import pandas as pd
+from matplotlib import pyplot as plt
+
+file_name = r'C:\\Users\\User\\OneDrive\\Desktop\\SQL\\work_done.csv'
+csv_file = pd.read_csv(file_name)
+print(csv_file.head())
+
+plt.title('Relationship Between Sick Leave and Job Title')
+plt.bar(csv_file.CombinedJobTitle, csv_file.avgSickLeaveHours)
+plt.xlabel('CombinedJobTitle')
+plt.ylabel('avgSickLeaveHours')
+
+plt.xticks(rotation=-90) # Rotate the x-axis tick labels by 90 degrees
+plt.show()
