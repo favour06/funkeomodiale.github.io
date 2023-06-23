@@ -1,0 +1,26 @@
+WITH SimilarJobTitles AS (
+  SELECT
+    CASE
+      WHEN [JobTitle] LIKE 'Production Technician%' THEN 'Production Technician'
+      WHEN [JobTitle] LIKE '%Human Resources%' THEN 'Human Resources'
+      WHEN [JobTitle] LIKE '%Accounts%' THEN 'Accounts'
+      WHEN [JobTitle] LIKE '%Marketing%' THEN 'Marketing'
+      WHEN [JobTitle] LIKE '%Document Control%' THEN 'Document Control'
+      WHEN [JobTitle] LIKE '%Quality Assurance%' THEN 'Quality Assurance'
+      WHEN [JobTitle] LIKE '%Research%' THEN 'Research'
+      WHEN [JobTitle] LIKE '%Shipping%' THEN 'Shipping'
+      WHEN [JobTitle] LIKE '%Vice President%' THEN 'Vice President'
+      WHEN [JobTitle] LIKE '%Production%' THEN 'Production'
+      WHEN [JobTitle] LIKE '%Purchasing%' THEN 'Purchasing'
+      WHEN [JobTitle] LIKE '%Manager%' THEN 'Manager'
+	  WHEN [JobTitle] LIKE '%Accountant%' THEN 'Accounts'
+	  WHEN [JobTitle] LIKE '%Designer%' THEN 'Designer'
+      ELSE [JobTitle]
+    END AS [CombinedJobTitle],
+    [SickLeaveHours]
+  FROM [AdventureWorks2022].[HumanResources].[Employee]
+)
+SELECT [CombinedJobTitle], AVG([SickLeaveHours]) AS avgSickLeaveHours
+FROM SimilarJobTitles
+GROUP BY [CombinedJobTitle]
+ORDER BY avgSickLeaveHours;
